@@ -8,6 +8,7 @@ use futures::stream;
 use futures::StreamExt;
 use reqwest::header::HeaderMap;
 use reqwest::Client;
+use std::collections::HashSet;
 use std::fs::{create_dir_all, read_to_string, write};
 use std::path::Path;
 
@@ -18,10 +19,14 @@ enum Ext {
 
 fn read_lines(filename: &str) -> Vec<(u64, String)> {
     let mut result = Vec::new();
-    let mut c = 1;
+    let mut c = 0;
+    let mut uniq: HashSet<String> = HashSet::new();
     for line in read_to_string(filename).unwrap().lines() {
-        result.push((c, line.to_string()));
         c = c + 1;
+        if !uniq.contains(line) {
+            uniq.insert(line.to_string());
+            result.push((c, line.to_string()));
+        }
     }
     result
 }
