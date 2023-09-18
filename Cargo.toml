@@ -1,0 +1,13 @@
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "4.4.3", features = ["derive"] }
+futures = "0.3.28"
+reqwest = "0.11.20"
+rust-crypto = "0.2.36"
+tokio = { version = "1.32.0", features = ["full"] }
